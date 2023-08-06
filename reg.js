@@ -1,0 +1,72 @@
+"using strict";
+const firebaseConfig = {
+  apiKey: "AIzaSyAEVXNX8AVWSUNBubFItcXK1ZxAixx3aEE",
+  authDomain: "axis-bankproject.firebaseapp.com",
+  databaseURL: "https://axis-bankproject-default-rtdb.firebaseio.com",
+  projectId: "axis-bankproject",
+  storageBucket: "axis-bankproject.appspot.com",
+  messagingSenderId: "837146426300",
+  appId: "1:837146426300:web:bf154f6447885a822ec9b9",
+  measurementId: "G-GMPG65FHR6",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const registerForm = document.getElementById("registerDB");
+
+  registerForm.addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the form from submitting normally
+
+    // Get input values
+    const name = document.getElementById("name").value;
+    const username = document.getElementById("uname").value;
+    const email = document.getElementById("email").value;
+    const phoneNumber = document.getElementById("phno").value;
+    const password = document.getElementById("pass").value;
+    const dob = document.getElementById("dob").value;
+    const age = document.getElementById("age").value;
+    const college = document.getElementById("college").value;
+    const cgpa = document.getElementById("cgpa").value;
+    const graduationYear = document.getElementById("graduation-year").value;
+    const educationGap = document.getElementById("education-gap").value;
+    const degree = document.getElementById("degree").value; // Make sure you add 'id="degree"' to the respective input
+    const branch = document.getElementById("branch").value; // Make sure you add 'id="branch"' to the respective input
+    const education12 = document.getElementById("education-12").value;
+    const education10 = document.getElementById("education-10").value;
+    const gender = document.querySelector('input[name="gender"]:checked')
+      .nextElementSibling.textContent;
+
+    // Assuming you have initialized Firebase properly
+    const db = firebase.firestore();
+
+    // Insert the data into Firebase
+    db.collection("users")
+      .add({
+        name: name,
+        username: username,
+        email: email,
+        phoneNumber: phoneNumber,
+        password: password,
+        dob: dob,
+        age: age,
+        college: college,
+        cgpa: cgpa,
+        graduationYear: graduationYear,
+        educationGap: educationGap,
+        degree: degree,
+        branch: branch,
+        education12: education12,
+        education10: education10,
+        gender: gender,
+      })
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        // You can redirect or show a success message here
+      })
+      .catch(function (error) {
+        console.error("Error adding document: ", error);
+        // Handle error here
+      });
+  });
+});
