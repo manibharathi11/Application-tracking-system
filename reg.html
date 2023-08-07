@@ -3,6 +3,7 @@
   
     <meta charset="UTF-8" />
     <title>Responsive Registration Form</title>
+    <script type="module" src="reg.js" ></script>
     <link rel="stylesheet" href="reg.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
     <script type="module">
@@ -19,7 +20,7 @@
       <div class="title">Registration</div>
       <div class="content">
         <span class="borderLine"></span>
-        <form id="registerDB">
+        <form onsubmit="signup(event)" id="registerDB">
           <div class="user-details">
             <div class="input-box">
               <span class="details">First Name</span>
@@ -189,11 +190,11 @@
         </form>
       </div>
     </div>
-    <script src="reg.js"></script>
-    <script>
+   
+    <!-- <script>
       function navigation() {
         window.location("anlogin.html");
-      }
+      } -->
     </script>
   </body>
 </html>

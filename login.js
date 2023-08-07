@@ -8,15 +8,17 @@ const firebaseConfig = {
   appId: "1:837146426300:web:bf154f6447885a822ec9b9",
   measurementId: "G-GMPG65FHR6",
 };
+
 firebase.initializeApp(firebaseConfig);
-//const analytics = analytics(app);
-const auth = getAuth();
+const db = firebase.firestore();
+//const analytics = getAnalytics(app);
+const auth = firebase.auth();
 
 //login-code
 
-document.getElementById("submit-login").addEventListener("click", function () {
-  var email = document.getElementById("login_email").value;
-  var password = document.getElementById("login_password").value;
+document.getElementById("login").addEventListener("click", function () {
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
