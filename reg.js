@@ -1,4 +1,3 @@
-"using strict";
 const firebaseConfig = {
   apiKey: "AIzaSyAEVXNX8AVWSUNBubFItcXK1ZxAixx3aEE",
   authDomain: "axis-bankproject.firebaseapp.com",
@@ -11,6 +10,11 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+//const analytics = getAnalytics(app);
+const auth = firebase.auth();
+
+//console.log(app);
 
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("registerDB");
@@ -23,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const username = document.getElementById("uname").value;
     const email = document.getElementById("email").value;
     const phoneNumber = document.getElementById("phno").value;
-    const password = document.getElementById("pass").value;
+    const password = document.getElementById("password").value;
     const dob = document.getElementById("dob").value;
     const age = document.getElementById("age").value;
     const college = document.getElementById("college").value;
@@ -38,7 +42,31 @@ document.addEventListener("DOMContentLoaded", function () {
       .nextElementSibling.textContent;
 
     // Assuming you have initialized Firebase properly
-    const db = firebase.firestore();
+
+    //email authentication
+
+    document.getElementById("submit").addEventListener("click", function () {
+      var email = document.getElementById("email").value;
+      console.log(email);
+      var password = document.getElementById("password").value;
+      console.log(password);
+      //For new registration
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          alert("Registration successfully!!");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          console.log(errorMessage);
+          alert(error);
+        });
+    });
 
     // Insert the data into Firebase
     db.collection("users")
@@ -62,6 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then(function (docRef) {
         console.log("Document written with ID: ", docRef.id);
+        window.location.href = "anlogin.html";
+
         // You can redirect or show a success message here
       })
       .catch(function (error) {
