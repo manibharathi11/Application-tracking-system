@@ -1,47 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
-      import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword,
-        signOut,
-      } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
-    </script>
-    <meta charset="UTF-8" />
-
-    <script src="login.js"></script>
-    <title>Login Page</title>
-    <link rel="stylesheet" href="anlogin.css" />
-  </head>
-  <body>
-    <div class="box">
-      <span class="borderLine"></span>
-      <form id="loginForm">
-        <h2>Sign In</h2>
-        <div class="inputBox">
-          <input type="text" id="email" required="required" />
-          <span>Email</span>
-          <i></i>
-        </div>
-        <div class="inputBox">
-          <input type="password" id="password" required="required" />
-          <span>Password</span>
-          <i></i>
-        </div>
-        <div class="Links">
-          <a href="#">Forgot Password</a>
-          <a href="reg.html">SignUp</a>
-        </div>
-        <input type="submit" id="login" value="Login" />
-      </form>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="anlogin.css">
+    <title>ToDo login Page</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Login</h1>
+        <form onsubmit="login(event)">
+           <div class="wrapper">
+            <div>
+                <input type="text" name="" placeholder="Email" id="email">
+            </div>
+            <div>
+                <input type="password" name="" placeholder="Password" id="password">
+            </div>
+            <button  id="signupinp">Sign In</button>
+            <div class="member">
+               Not A Memeber?<a href="reg.html">Signup Here!</a>
+            </div>
+        </form>
     </div>
-    <script type=" module" src="login.js"></script>
-  </body>
+</div>
+</body>
+<script type="module" src="login.js"></script>
 </html>

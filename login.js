@@ -1,3 +1,11 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAEVXNX8AVWSUNBubFItcXK1ZxAixx3aEE",
   authDomain: "axis-bankproject.firebaseapp.com",
@@ -8,66 +16,33 @@ const firebaseConfig = {
   appId: "1:837146426300:web:bf154f6447885a822ec9b9",
   measurementId: "G-GMPG65FHR6",
 };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-//const analytics = getAnalytics(app);
-const auth = firebase.auth();
+var email = document.getElementById("email");
+var password = document.getElementById("password");
+window.login = function (e) {
+  e.preventDefault();
+  var obj = {
+    email: email.value,
+    password: password.value,
+  };
 
-//login-code
+  signInWithEmailAndPassword(auth, obj.email, obj.password)
+    .then(function (success) {
+      alert("logined Successfully");
+      var aaaa = success.user.uid;
+      localStorage.setItem("uid", aaaa);
+      console.log(aaaa);
 
-document.getElementById("login").addEventListener("click", function () {
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      console.log(user);
-      alert(user.email + " Login successfully!!!");
-      window.location.href = "landing-page.html";
-      //  document.getElementById("logout").style.display = "block";
-      // ...
+      window.location.replace("landing-page.html");
+      // localStorage.setItem(success,user,uid)
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage);
-      alert(errorMessage);
+    .catch(function (err) {
+      alert("login error" + err);
     });
-});
 
-//reference your database;
-
-// Make sure you've initialized Firebase with your configuration before using Firebase features.
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   const loginForm = document.getElementById("loginForm");
-
-//   loginForm.addEventListener("submit", function (e) {
-//     e.preventDefault(); // Prevent the form from submitting normally
-
-//     // Get input values
-//     const email = document.getElementById("email").value;
-//     const password = document.getElementById("password").value;
-
-//     // Assuming you have initialized Firebase properly
-//     const db = firebase.firestore();
-
-//     // Insert the data into Firebase
-//     db.collection("users")
-//       .add({
-//         email: email,
-//         password: password,
-//       })
-//       .then(function (docRef) {
-//         console.log("Document written with ID: ", docRef.id);
-//         // You can redirect or show a success message here
-//       })
-//       .catch(function (error) {
-//         console.error("Error adding document: ", error);
-//         // Handle error here
-//       });
-//   });
-// });
+  console.log(obj);
+};
