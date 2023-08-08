@@ -1,8 +1,12 @@
-const fs = require("fs");
-const pdfjs = require("pdfjs-dist");
-const { JaroWinklerDistance } = require("natural");
-const { Console } = require("console");
-const { type } = require("os");
+import fs from "fs";
+import pdfjs from "pdfjs-dist";
+import natural from "natural";
+import { createTransport } from "nodemailer";
+import { error, log } from "console";
+
+let file;
+let fileName;
+
 let total = 0;
 // Function to read the contents of a PDF file
 async function extractInformationFromPDF(filePath) {
@@ -34,12 +38,12 @@ function rankMatches(extractedText, jobDescription) {
     if (jobDescription.hasOwnProperty(key)) {
       const value = jobDescription[key];
       if (typeof value === "string") {
-        const similarity = JaroWinklerDistance(
+        const similarity = natural.JaroWinklerDistance(
           extractedText.toLowerCase(),
           value.toLowerCase(),
           { ignoreCase: true }
         );
-        const similarityScale10 = Math.trunc(similarity * 20);
+        const similarityScale10 = similarity * 100;
         rankedMatches.push({ key, similarity: similarityScale10 });
       } else {
         console.warn(`Warning: Value for attribute "${key}" is not a string.`);

@@ -1,29 +1,85 @@
 <!DOCTYPE html>
-<!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <title> Responsive Registration Form</title>
-    <link rel="stylesheet" href="finalpage.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <div class="container">
-    <div class="title">Resume</div>
-    <div class="content">
-      <span class="borderLine"></span>
-      <form action="#">
-        <div class="user-details"> 
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Responsive Registration Form</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <link rel="stylesheet" href="finalpage.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">Resume</div>
+      <div class="content">
+        <span class="borderLine"></span>
+        <form action="#">
+          <div class="user-details">
             <div class="input-box">
-                <label for="resume">Upload Resume (PDF)</label>
-                <input type="file" class="form-control-file" id="resume" accept=".pdf" required>
+              <label for="resume">Upload Resume (PDF)</label>
+              <input
+                type="file"
+                onchange="getImageData(event)"
+                class="form-control-file"
+                id="resume"
+                accept=".pdf"
+                required
+              />
             </div>
-        </div>
-        <div class="button">
-          <input type="submit" value="Submit">
-        </div>
-      </form>
+          </div>
+          <div class="button">
+            <input
+              type="button"
+              onclick="uploadImage()"
+              value="Upload Resume"
+            />
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-</body>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAEVXNX8AVWSUNBubFItcXK1ZxAixx3aEE",
+        authDomain: "axis-bankproject.firebaseapp.com",
+        databaseURL: "https://axis-bankproject-default-rtdb.firebaseio.com",
+        projectId: "axis-bankproject",
+        storageBucket: "axis-bankproject.appspot.com",
+        messagingSenderId: "837146426300",
+        appId: "1:837146426300:web:bf154f6447885a822ec9b9",
+        measurementId: "G-GMPG65FHR6",
+      };
+
+      const app = firebase.initializeApp(firebaseConfig);
+      const storage = firebase.storage();
+      let file;
+      let fileName;
+
+      const getImageData = (e) => {
+        file = e.target.files[0];
+        fileName = Math.round(Math.random() * 9999) + file.name;
+      };
+
+      const uploadImage = () => {
+        const storageRef = storage.ref().child("myimages");
+        const folderRef = storageRef.child(fileName);
+        const uploadTask = folderRef.put(file);
+
+        uploadTask.then((snapshot) => {
+          console.log("File Uploaded Successfully");
+
+          storage
+            .ref("myimages")
+            .child(fileName)
+            .getDownloadURL()
+            .then((url) => {
+              console.log("URL", url);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+      };
+    </script>
+  </body>
 </html>
