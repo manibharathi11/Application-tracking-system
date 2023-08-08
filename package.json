@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/manibharathi11/Application-tracking-system#readme",
   "dependencies": {
-    "firebase": "^10.1.0"
+    "firebase": "^10.1.0",
+    "natural": "^6.5.0",
+    "pdfjs-dist": "^3.9.179"
   }
 }
