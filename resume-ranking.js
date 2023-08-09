@@ -4,9 +4,6 @@ import natural from "natural";
 import { createTransport } from "nodemailer";
 import { error, log } from "console";
 
-let file;
-let fileName;
-
 let total = 0;
 // Function to read the contents of a PDF file
 async function extractInformationFromPDF(filePath) {

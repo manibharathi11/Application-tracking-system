@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 
-    <title>Responsive Registration Form</title>
+    <title>Resume-Ranking-page</title>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
     <link rel="stylesheet" href="finalpage.css" />
@@ -12,9 +12,16 @@
   <body>
     <div class="container">
       <div class="title">Resume</div>
+      <h2>Welcome to the Resume Ranking Platform</h2>
+      <p>Upload your resume to see how it ranks!</p>
       <div class="content">
+       
+        <div class="content">
+          <div class="header">
+            
+          </div>
         <span class="borderLine"></span>
-        <form action="#">
+        <form id = "resumeForm" action="/upload" method="post" enctype="multipart/form-data">
           <div class="user-details">
             <div class="input-box">
               <label for="resume">Upload Resume (PDF)</label>
@@ -31,7 +38,7 @@
           <div class="button">
             <input
               type="button"
-              onclick="uploadImage()"
+              onsubmit="uploadImage()"
               value="Upload Resume"
             />
           </div>
@@ -64,6 +71,7 @@
         const storageRef = storage.ref().child("myimages");
         const folderRef = storageRef.child(fileName);
         const uploadTask = folderRef.put(file);
+        
 
         uploadTask.then((snapshot) => {
           console.log("File Uploaded Successfully");
@@ -81,5 +89,6 @@
         });
       };
     </script>
+    <script src="resume-ranking.js"></script>
   </body>
 </html>
